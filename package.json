@@ -1,14 +1,15 @@
 {
   "bin": "app.js",
-  "name": "IPSViewer",
+  "name": "shl-ips-viewer",
   "version": "0.0.1",
-  "description": "IPS Viewer",
+  "description": "SMART Health Link IPS Viewer",
   "main": "app.js",
   "author": {
     "name": "More Informatics, Inc.",
     "email": "johnd@moreinformatics.com"
   },
   "scripts": {
+    "start": "export SERVER_PORT=3000 || set SERVER_PORT=3000 && node ./app.js --no-cache",
     "lint": "./node_modules/.bin/eslint . -c .eslintrc.js --ext .js",
     "debug": "nodemon app -e html,js",
     "test": "mocha test/test.js"
