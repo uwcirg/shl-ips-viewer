@@ -7,6 +7,8 @@ const index = fs.readFileSync('./ips_main.html', 'utf-8');
 const favicon = fs.readFileSync('./favicon.ico');
 const app = express();
 
+const serverPortNumber = process.env.SERVER_PORT || 8888;
+
 let privateKey; 
 let certificate;
 let ca;
@@ -35,15 +37,12 @@ app.get('*', (req, res) => {
   res.redirect('/');
 });
 
-var httpServer = http.createServer(app);
-let httpsServer;
 if (credentials) {
-  httpsServer = https.createServer(credentials, app);
+  var httpsServer = https.createServer(credentials, app);
+  httpsServer.listen(serverPortNumber);
+  console.log(`listening on HTTPS port ${serverPortNumber}`);
+} else {
+  var httpServer = http.createServer(app);
+  httpServer.listen(serverPortNumber);
+  console.log(`listening on HTTP port ${serverPortNumber}`);
 }
-
-httpServer.listen(80);
-if (httpsServer) {
-  httpsServer.listen(443);
-  console.log('listening on HTTP and HTTPS...')
-}
-else console.log('HTTPS server not running...')

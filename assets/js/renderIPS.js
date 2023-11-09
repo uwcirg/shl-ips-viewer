@@ -10,14 +10,17 @@ let mode = "Entries";
 
 let shlContents;
 
+const html_dir = "/assets/html/";
+const template_dir = "/templates/";
+
 // Sqrl setting. See https://v7--squirrellyjs.netlify.app/docs/v7/auto-escaping
 Sqrl.autoEscaping(false);
 
 // Load header and footer on document ready and attach button actions
 $(document).ready(function () {
   Promise.all([
-    $("#header").load(config.html_dir + "header.html"),
-    $("#footer").load(config.html_dir + "footer.html")
+    $("#header").load(html_dir + "header.html"),
+    $("#footer").load(html_dir + "footer.html")
   ]).then((success) => {
     $("#content").show();
   }, (failure) => {
@@ -101,7 +104,7 @@ function render(templateName, data, targetLocation) {
     entryCheck = data.entry.length
   }
   if (mode == "Entries" && templateName !== "Other") {
-    var jqxhr = $.get(config.template_dir + templateName + ".html", function () { })
+    var jqxhr = $.get(template_dir + templateName + ".html", function () { })
       .done(function (template) {
         // console.log(template);
         console.log(data);
@@ -120,7 +123,7 @@ function render(templateName, data, targetLocation) {
     var content = { titulo: data.title, div: "No text defined.", index: sectionCount };
     if (!content.titulo) content.titulo = data.resourceType;
     if (data.text) content.div = data.text.div;
-    var jqxhr = $.get(config.template_dir + "Text.html", function () { })
+    var jqxhr = $.get(template_dir + "Text.html", function () { })
       .done(function (template) {
         var templateResult = Sqrl.Render(template, content);
         $("#" + targetLocation).html(templateResult);
@@ -133,7 +136,7 @@ function render(templateName, data, targetLocation) {
 
 // This is the header table for some basic data checks
 function renderTable(data) {
-  let jqxhr = $.get(config.template_dir + "Checks.html", function () { })
+  let jqxhr = $.get(template_dir + "Checks.html", function () { })
     .done(function (template) {
       $("#ips-loader").hide();
       let templateResult = Sqrl.Render(template, data);
@@ -177,7 +180,7 @@ function prepareSHLContents(contents) {
     contents = [contents];
   }
   shlContents = contents.reverse();
-  var jqxhr = $.get(config.template_dir + "IPS.html", function () { })
+  var jqxhr = $.get(template_dir + "IPS.html", function () { })
     .done(function (template) {
       shlContents.forEach((e, i) => {
         let data = { index: i };

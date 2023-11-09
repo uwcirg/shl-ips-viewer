@@ -9,38 +9,27 @@
         <ul class="list-group">
         {{each(options.medications)}}
             <li class="list-group-item">
-              <span style="color: lightgray;">{{@this.statement.resourceType}} </span>
-              <br />
+              <!-- {{@this.statement.resourceType}}  -->
+              <!-- <br /> -->
               {{if(options.medications[@index].medication.code && options.medications[@index].medication.code.coding && options.medications[@index].medication.code.coding.length)}}
-				{{each(options.medications[@index].medication.code.coding)}}
-                  <span class="badge badge-primary">{{@this.system}}</span> 
-                  {{if (@this.display)}}
-				      {{@this.display}} 
-				  {{#else }}
-				      <i>[Coded medication without display]</i>
-				  {{/if }}
+                {{each(options.medications[@index].medication.code.coding)}}
+                  <span class="badge badge-primary">{{@this.system}}</span>
+                  <br>
+                  {{@this.display}} 
                   {{if (@this.code)}}
                       ({{@this.code}})
                   {{ /if }}
                 <br>
                 {{/each}}
-				{{if(@this.statement.medicationCodeableConcept && @this.statement.medicationCodeableConcept.text)}}
-				  <span style="color: lightgray;">Original Text: </span>{{@this.statement.medicationCodeableConcept.text}}
-				{{ /if }}
-				<br>
               {{#else}}
-                {{if(options.medications[@index].medication.code)}}
-                  <span class="badge badge-primary">(Uncoded)</span> {{@this.medication.code.text}}<br>
+                <span class="badge badge-secondary">uncoded</span> 
+                <br>
+                  {{if(@this.medication.code && @this.medication.code.text)}}
+                    {{@this.medication.code.text}}
                   {{#else}}
-                  <span class="badge badge-primary">(Uncoded)</span>
-                  {{if(@this.statement.medicationCodeableConcept && @this.statement.medicationCodeableConcept.text) }}
-                    {{@this.statement.medicationCodeableConcept.text}}
-                  {{/if}}
-                  {{if(@this.statement.medicationReference && @this.statement.medicationReference.display)}}
                     {{@this.statement.medicationReference.display}}
                   {{/if}}
                   <br>
-                {{/if }}
               {{/if}}
               {{if(options.medications[@index].medication.ingredient && options.medications[@index].medication.ingredient.itemCodeableConcept)}}
                 {{each(options.medications[@index].medication.ingredient)}}
@@ -87,20 +76,7 @@
                           {{/if}}
                       </tr>
                   </table>
-              {{/if}}
-			  {{if (options.medications[@index].statement && options.medications[@index].statement.reasonCode)}}
-			     {{each(options.medications[@index].statement.reasonCode) }}
-				   <span style="color: lightgray;">Indication: </span>
-				   {{ if(@this.text) }}
-  				      {{@this.text}}
-				   {{ #else }}
-				      {{if (@this.coding && @this.coding[0] && @this.coding[0].display) }}
-					  {{@this.coding[0].display}}
-  				      {{ #else }}  
-				      <i>Indication without display</i> 
-				      {{ /if }}
-				   {{ /if }}
-				 {{/each}}
+              </li>
               {{/if}}
             </li>
         {{/each}}

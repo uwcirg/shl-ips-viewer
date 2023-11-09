@@ -1,5 +1,5 @@
-import * as shlClient from 'shlClient.js';
-import { verify } from './shcDecoder.js';
+import * as shlClient from 'https://shl-client.fl.dlorigan.dev.cirg.uw.edu/index.js';
+import { verify } from 'https://shl-client.fl.dlorigan.dev.cirg.uw.edu/shc-decoder.js';
 import { prepareSHLContents } from "./renderIPS.js";
 
 const shl = window.location.hash.match(/shlink:\/.*/)?.[0];

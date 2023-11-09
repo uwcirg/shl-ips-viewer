@@ -9,7 +9,7 @@
     "email": "johnd@moreinformatics.com"
   },
   "scripts": {
-    "start": "export SERVER_PORT=3000 || set SERVER_PORT=3000 && node ./app.js --no-cache",
+    "start": "export SERVER_PORT=3000 || set SERVER_PORT=3000 && node app.js",
     "lint": "./node_modules/.bin/eslint . -c .eslintrc.js --ext .js",
     "debug": "nodemon app -e html,js",
     "test": "mocha test/test.js"
